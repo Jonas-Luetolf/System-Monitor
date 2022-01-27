@@ -6,7 +6,7 @@ BOTTOM="▄"
 TOP="▀"
 
 class PixelGrafik:
-    def __init__(self,x_len,y_len):
+    def __init__(self,x_len:int,y_len:int)->None:
         self.y_len=y_len
         self.x_len=x_len
         
@@ -21,12 +21,13 @@ class PixelGrafik:
 
             self.field.append(temp)
 
-    def set_pixel(self,x,y,icon=FULL):
+    def set_pixel(self,x:int,y:int,icon=FULL)->bool:
         if len(icon)>1 or len(icon)<1:
             return False
         self.field[y][x]=icon
+        return True
 
-    def add_text(self,text,y,x=0):
+    def add_text(self,text:str,y:int,x=0)->bool:
         if len(text) > self.x_len or x+len(text) > self.x_len or "\n" in text:
             return False
         
@@ -34,8 +35,9 @@ class PixelGrafik:
             for i in text:
                 self.field[y][x]=i
                 x+=1
+            return True
               
-    def __str__(self):
+    def __str__(self)->str:
         ret=""
         for y in self.field:
             for x in y:
@@ -43,16 +45,16 @@ class PixelGrafik:
             ret+="\n"
         return ret[0:-1]
 
-    def get_line(self,y):
+    def get_line(self,y:int)->str:
         ret=""
         for x in self.field[y]:
                 ret+=x
         return ret
 
-    def get_pixel(self,x,y):
+    def get_pixel(self,x:int,y:int)->str:
         return self.field[y][x]
         
-    def clear(self):
+    def clear(self)->None:
         self.field=[]
         for y in range(0,self.y_len):
             temp=[]
