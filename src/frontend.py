@@ -21,3 +21,9 @@ class frontend:
     def print_help(self)->None:
         help_data=self.backend_handler.get_help_data()
         print(help_data)
+
+    def print_data(self,data:dict)->str:
+        pass
+
+    def format_cpu_data(self,cpu_data:dict)->str:
+        pass
