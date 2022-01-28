@@ -1,4 +1,5 @@
 #Copyright (c) 2022 Jonas Lütolf 
+import os
 import yaml
 import psutil
 
@@ -40,7 +41,14 @@ class SettingsHandler:
                 f.write(yaml.dump(data))
                 
     def valid_settings(self,data:dict)->bool:
-        return True
+        ret=0
+        ret+=os.path.isfile(data["help_text_path"])
+        ret+=type(data["update_time"])==int
+
+        if ret==2:
+            return True
+        else:
+            return False
 
 class Handler:
     def __init__(self,config_path:str,backup_path:str)->None:
