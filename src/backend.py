@@ -41,7 +41,7 @@ class SettingsHandler:
                 f.write(yaml.dump(data))
                 
     def valid_settings(self,data:dict)->bool:
-        ret=0
+        ret:int=0
         ret+=os.path.isfile(data["help_text_path"])
         ret+=type(data["update_time"])==int
 

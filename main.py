@@ -1,5 +1,3 @@
-#Copyright (c) 2022 Jonas Lütolf 
-#min. Python version 3.10.0
 import src.backend as backend
 import src.frontend as frontend
 import src.diagram.diagram as diagram
@@ -22,13 +20,9 @@ def main(option:list)->None:
 
    
 if __name__ == '__main__':
-    print(sys.argv)
     argparser=parser.ArgumentParser()
     argparser.add_option("--loop")
     argparser.add_option("-help")
     argparser.parse()
 
-    main(argparser[0])
-
-
-    
+    main(argparser[0])   
