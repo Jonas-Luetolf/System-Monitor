@@ -62,8 +62,6 @@ class Handler:
         
         if "ram" in objects:
             ret.update({"ram":self.ram_handler.get_data()})
-
-        if "disks" in objects:
             ret.update({"disks":self.disks_handler.get_data()})
         return ret
     
