@@ -64,15 +64,13 @@ class PixelGrafik:
             self.field.append(temp)
 
 class Diagram(PixelGrafik):
-    def __init__(self, x_len:int, y_len:int)->None:
-        super().__init__(x_len, y_len)
+    def __init__(self)->None:
+        super().__init__(10,10)
        
-    def set_data(self, data:list)->None:
+    def set_data(self, data:float)->None:
         self.clear()
-        if len(data)<self.x_len:
-            data+=[0]*(self.x_len-len(data))
-
-        x=0
-        for i in data:
-            self.set_pixel(x,10-i//10)
-            x+=1
+        if data>0 and data<=100:
+            data=round(data/10)
+            data=int(data)
+            for i in range(0,data):
+                self.set_pixel(i,0)

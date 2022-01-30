@@ -9,7 +9,7 @@ def main()->None:
     argparser=parser.ArgumentParser()
     argparser.add_option("--loop")
     argparser.add_option("--editconf",1)
-    argparser.add_option("-help")
+    argparser.add_option("--help")
     argparser.parse()
 
     backend_handler=backend.Handler("config/config.yaml","config/backupconfig.yaml")
@@ -23,9 +23,14 @@ def main()->None:
 
         case "--help":
             Frontend.print_help()
+
         case "--editconf":
             backend_handler.set_config_by_file(argparser[0][1]) 
 
    
 if __name__ == '__main__':
-    main()   
+    try:
+        main()
+
+    except Exception as exc:
+        print(exc)
