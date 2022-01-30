@@ -14,7 +14,7 @@ class frontend:
 
     def start_loop(self)->None:
         while True:
-            aktuell_data=self.get_data(["cpu","ram","disks"])
+            aktuell_data=self.get_data(["frontend","cpu","ram","disks"])
             print(aktuell_data)
             time.sleep(self.config["update_time"]-DATALOADTIME)
 
