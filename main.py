@@ -22,6 +22,7 @@ def main(option:list)->None:
 if __name__ == '__main__':
     argparser=parser.ArgumentParser()
     argparser.add_option("--loop")
+    argparser.add_option
     argparser.add_option("-help")
     argparser.parse()
 

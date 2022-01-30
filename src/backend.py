@@ -43,11 +43,11 @@ class SettingsHandler:
                 f.write(yaml.dump(data))
                 
     def valid_settings(self,data:dict)->bool:
-        ret:int=0
-        ret+=os.path.isfile(data["help_text_path"])
-        ret+=type(data["update_time"])==int
-
-        if ret==2:
+        ret:list=[]
+        ret.append(int(os.path.isfile(data["help_text_path"])))
+        ret.append(int(type(data["update_time"])==int))
+        ret.append(int(type(data["data_load_time"])==int))
+        if sum(ret)==len(ret):
             return True
         else:
             return False
@@ -58,7 +58,8 @@ class Handler:
         self.cpu_handler=CPU_Data_Handler()
         self.ram_handler=RAM_Data_Handler()
         self.disks_handler=Disks_Data_Handler()       
-        
+        self.get_general_data()
+
     def get_general_data(self)->None:
         self.os=platform.platform()
         self.hostname=socket.gethostname()
