@@ -14,7 +14,7 @@ class frontend:
 
     def start_loop(self)->None:
         while True:
-            aktuell_data=self.get_data(["cpu","ram","disks"])
+            aktuell_data=self.get_data(["general","cpu","ram","disks"])
             print(aktuell_data)
             time.sleep(self.config["update_time"]-DATALOADTIME)
 
@@ -23,7 +23,7 @@ class frontend:
         print(help_data)
 
     def print_data(self,data:dict)->str:
-        pass
+        cpu_data=self.format_cpu_data(data["cpu"])
 
     def format_cpu_data(self,cpu_data:dict)->str:
-        pass
+        ret=f"Cores: {cpu_data['num_cores']}\nfrequenc"
