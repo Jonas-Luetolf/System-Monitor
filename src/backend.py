@@ -41,6 +41,8 @@ class SettingsHandler:
             
             with open(self.backup_path,"w")as f:
                 f.write(yaml.dump(data))
+        else:
+            raise InvalidSettings
                 
     def valid_settings(self,data:dict)->bool:
         ret:list=[]
@@ -67,7 +69,9 @@ class Handler:
     def get_config(self)->dict:
         return self.settings_handler.get_settings()
 
-    def set_config(self,data:dict)->None:
+    def set_config_by_file(self,path:str)->None:
+        with open(path,"r") as f:
+            data=yaml.load(f.read(), Loader=yaml.FullLoader)
         self.settings_handler.set_settings(data)
 
     def get_data(self,objects:list)->dict:
