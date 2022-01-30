@@ -19,7 +19,7 @@ class frontend:
 
             aktuell_data=self.get_data(["frontend","cpu","ram","disks"])
 
-            print(aktuell_data)
+            self.print_data(aktuell_data)
             time.sleep(self.config["update_time"]-DATALOADTIME)
 
     def print_help(self)->None:
@@ -27,7 +27,12 @@ class frontend:
         print(help_data)
 
     def print_data(self,data:dict)->str:
-        cpu_data=self.format_cpu_data(data["cpu"])
+        print(self.format_cpu_data(self.format_cpu_data(data["cpu"])))
 
     def format_cpu_data(self,cpu_data:dict)->str:
-        pass
+        usage_per_cpu=""
+        for index,item in enumerate(cpu_data['usage_percpu']):
+            usage_per_cpu+=f"[index:item]"
+        self.cpu_usage_diagram.set_data(cpu_data['general_usage'])      
+        ret = f"CPU:\nCores: {cpu_data['num_cores']}\nMax frequence: {cpu_data['max_freq']}\nGenaral usage: {cpu_data['general_usage']}\nUsage per cpu: {usage_per_cpu}\nGeneral Usage: {str(self.cpu_usage_diagram)}"
+        return ret
