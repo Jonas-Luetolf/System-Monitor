@@ -2,6 +2,8 @@
 import os
 import yaml
 import psutil
+import platform
+import socket
 
 class InvalidSettings(Exception):
     def __init__(self) -> None:
@@ -57,6 +59,10 @@ class Handler:
         self.ram_handler=RAM_Data_Handler()
         self.disks_handler=Disks_Data_Handler()       
         
+    def get_general_data(self)->None:
+        self.os=platform.platform()
+        self.hostname=socket.gethostname()
+
     def get_config(self)->dict:
         return self.settings_handler.get_settings()
 
@@ -65,6 +71,9 @@ class Handler:
 
     def get_data(self,objects:list)->dict:
         ret={}
+        if "general" in objects:
+            ret.update({"general":{"os":self.os,"hostname":self.hostname}})
+
         if "cpu" in objects:
             ret.update({"cpu":self.cpu_handler.get_data()})
         
@@ -138,28 +147,3 @@ class Disk_Data_Handler:
         ret={"mountpoint":self.mountpoint,"fstype":self.fstype,"totalsize":self.total_size}
         ret.update(self.get_current_data())
         return ret
-    
-
-        
-
-
-
-
-
-
-
-
-import os
-import sys
-import json
-import time
-import platform
-import socket
-
-
-def get_general_data():
-    host_name=socket.gethostname()
-    aktuell_time=time.asctime(time.localtime())
-    os=platform.platform()
-    
-    return {"time":aktuell_time,"host_name":host_name,"os":os}
