@@ -9,6 +9,7 @@ class fg:
     WHITE   = '\033[37m'
     RESET   = '\033[0m'
 
+
 class bg:
     BLACK   = '\033[40m'
     RED     = '\033[41m'
@@ -25,4 +26,3 @@ class style:
     INTALIC = '\033[3m'
     UNDERLINE = '\033[4m'
     RESET = '\033[0m'
-	
