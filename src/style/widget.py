@@ -33,7 +33,6 @@ class Widget:
         
     def __str__(self):
         x_len=self.get_x_len()
-        print(self.lines[0])
 
         ret=f"{self.edge.LEFTTOP}{self.edge.BOTTOMTOP*math.ceil((x_len-1-len(self.name))/2)}{self.name}{self.edge.BOTTOMTOP*(math.ceil((x_len-len(self.name))/2))}{self.edge.RIGHTTOP}\n"
         for i in self.lines:

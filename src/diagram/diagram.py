@@ -65,12 +65,15 @@ class PixelGrafik:
 
 class Diagram(PixelGrafik):
     def __init__(self)->None:
-        super().__init__(10,10)
+        super().__init__(12,1)
        
     def set_data(self, data:float)->None:
         self.clear()
         if data>0 and data<=100:
             data=round(data/10)
             data=int(data)
-            for i in range(0,data):
+            self.set_pixel(0,0,"[")
+            for i in range(1,data+1):
                 self.set_pixel(i,0)
+
+            self.set_pixel(11,0,"]")
