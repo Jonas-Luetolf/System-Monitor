@@ -17,7 +17,7 @@ class frontend:
     def start_loop(self)->None:
         while True:
             aktuell_data=self.get_data(["general","cpu","ram","disks"])
-            print(aktuell_data)
+            self.format_cpu_data(aktuell_data["cpu"])
             time.sleep(int(self.config["update_time"])-int(self.config["data_load_time"]))
 
     def print_help(self)->None:
@@ -27,5 +27,11 @@ class frontend:
     def print_data(self,data:dict)->None:
         pass
 
-    def format_cpu_data(self):
-        pass
+    def format_cpu_data(self,data):
+        self.cpu_usage_diagram.set_data(data['general_usage'])
+        ret=widget.Widget("CPU")
+        ret[0]=f"Frequenz: {data['max_freq']}"
+        ret[1]=f"Cores: {data['num_cores']}"
+        ret[2]=f"Usage: {data['general_usage']}%{self.cpu_usage_diagram}"
+        print(ret)
+        

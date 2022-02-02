@@ -75,5 +75,5 @@ class Diagram(PixelGrafik):
             self.set_pixel(0,0,"[")
             for i in range(1,data+1):
                 self.set_pixel(i,0)
-
+                
             self.set_pixel(11,0,"]")
