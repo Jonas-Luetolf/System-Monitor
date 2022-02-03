@@ -31,9 +31,11 @@ class SettingsHandler:
         return load_data
 
     def open_config(slef,path:str)->dict:
-        with open(path,"r") as f:
-            return yaml.load(f.read(),Loader=yaml.FullLoader)
-            
+        try:
+            with open(path,"r") as f:
+                return yaml.load(f.read(),Loader=yaml.FullLoader)
+        except:
+            return ""
     def set_settings(self,data:dict)->None:
         if self.valid_settings(data):
             with open(self.config_path,"w") as f:
