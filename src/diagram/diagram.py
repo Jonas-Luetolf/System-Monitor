@@ -9,17 +9,8 @@ class PixelGrafik:
     def __init__(self,x_len:int,y_len:int)->None:
         self.y_len=y_len
         self.x_len=x_len
-        
-        #Feld erstellen
         self.field=[]
-        for y in range(0,self.y_len):
-            temp=[]
-
-
-            for x in range(0,self.x_len):
-                temp.append(" ")
-
-            self.field.append(temp)
+        self.clear()
 
     def set_pixel(self,x:int,y:int,icon=FULL)->bool:
         if len(icon)>1 or len(icon)<1:

@@ -8,7 +8,7 @@ import sys
 def main()->None: 
     argparser=parser.ArgumentParser()
     argparser.add_option("--loop")
-    argparser.add_option("--editconf",1)
+    argparser.add_option("--setconf",1)
     argparser.add_option("--help")
     argparser.parse()
 
@@ -24,7 +24,7 @@ def main()->None:
         case "--help":
             Frontend.print_help()
 
-        case "--editconf":
+        case "--setconf":
             backend_handler.set_config_by_file(argparser[0][1]) 
 
    

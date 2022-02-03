@@ -27,7 +27,6 @@ class Widget:
     def __setitem__(self,index,string):
         try:
             self.lines[index]=string
-
         except IndexError:
             for i in range(0,index+2-len(self.lines)-1):
                 self.lines.append("")
@@ -39,7 +38,6 @@ class Widget:
 
     def __str__(self):
         x_len=self.get_x_len()
-
         ret=f"{self.edge.LEFTTOP}{self.edge.BOTTOMTOP*math.ceil((x_len-1-len(self.name))/2)}{self.name}{self.edge.BOTTOMTOP*(math.ceil((x_len-len(self.name))/2))}{self.edge.RIGHTTOP}\n"
         for i in self.lines:
             ret+=f"{self.edge.LEFTRIGHT}{i}{' '*(x_len-len(i))}{self.edge.LEFTRIGHT}\n"

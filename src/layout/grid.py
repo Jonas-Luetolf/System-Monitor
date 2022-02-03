@@ -4,14 +4,12 @@ class Grid:
         self.lines=[]
     
     def clear(self):
-        del self.lines
         self.lines=[]
 
     def add_widget(self,widget,y):
         if y>=len(self.lines):
             for i in range(0,y+1-len(self.lines)):
                 self.lines.append(Line())
-        
         self.lines[y].add_widget(widget)
 
     def __str__(self):
@@ -21,25 +19,22 @@ class Grid:
 
         return ret
 
-
-
-
 class Line:
     def __init__(self):
         self.widgets=[]
 
     def add_widget(self,widget):
         self.widgets.append(widget)
+    
     def clear(self):
         self.widgets=[]
+    
     def __str__(self):
         x_lens=list(i.get_x_len()+2 for i in self.widgets)
         lines=[]
         anz_widgets=0
-        for i in self.widgets:
-            
+        for i in self.widgets:      
             for index,line in enumerate(i):
-                
                 try:
                     lines[index].append(line)
                 
