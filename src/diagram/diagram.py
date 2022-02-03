@@ -69,7 +69,7 @@ class Diagram(PixelGrafik):
        
     def set_data(self, data:float)->None:
         self.clear()
-        if data>0 and data<=100:
+        if data>=0 and data<=100:
             data=round(data/10)
             data=int(data)
             self.set_pixel(0,0,"[")

@@ -17,6 +17,12 @@ class Widget:
 
     def clear(self):
         self.lines=[]
+    
+    def __iter__(self):
+        string=str(self)
+        ret_list=string.split("\n")
+        for i in ret_list:
+            yield i
 
     def __setitem__(self,index,string):
         try:
@@ -30,7 +36,7 @@ class Widget:
     def get_x_len(self):
         x_len=0
         return max(len(i) for i in self.lines+[self.name])
-        
+
     def __str__(self):
         x_len=self.get_x_len()
 
