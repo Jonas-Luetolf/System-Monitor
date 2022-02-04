@@ -4,7 +4,6 @@ import yaml
 import psutil
 import platform
 import socket
-from os.path import *
 DEFAULTCONFIG="""
 data_load_time: 2
 update_time: 2
@@ -38,8 +37,12 @@ class SettingsHandler:
         try:
             with open(path,"r") as f:
                 return yaml.load(f.read(),Loader=yaml.FullLoader)
-        except:
-            f=open(f"{expanduser('~')}/.config/System-Monitor/config.yaml",'w')
+        except: 
+            try:
+                os.mkdir(os.path.expanduser('~')+"/.config/System-Monitor/")
+            except FileExistsError:
+                pass
+            f=open(os.path.expanduser('~')+"/.config/System-Monitor/config.yaml",'w')
             f.write(DEFAULTCONFIG)
             f.close()
             return yaml.load(DEFAULTCONFIG,Loader=yaml.FullLoader)
