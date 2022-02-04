@@ -1,4 +1,0 @@
----System Monitor Help--
---loop: prints the aktuell data in a loop
---editconf <filename>: writes the config from a file to config.yaml and backupconfig.yaml
-
