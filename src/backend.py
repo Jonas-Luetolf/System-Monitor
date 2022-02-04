@@ -4,7 +4,11 @@ import yaml
 import psutil
 import platform
 import socket
-
+from os.path import *
+DEFAULTCONFIG="""
+data_load_time: 2
+update_time: 2
+"""
 class InvalidSettings(Exception):
     def __init__(self) -> None:
         super().__init__()
@@ -35,7 +39,11 @@ class SettingsHandler:
             with open(path,"r") as f:
                 return yaml.load(f.read(),Loader=yaml.FullLoader)
         except:
-            return ""
+            f=open(f"{expanduser('~')}/.config/System-Monitor/config.yaml",'w')
+            f.write(DEFAULTCONFIG)
+            f.close()
+            return yaml.load(DEFAULTCONFIG,Loader=yaml.FullLoader)
+
     def set_settings(self,data:dict)->None:
         if self.valid_settings(data):
             with open(self.config_path,"w") as f:
@@ -48,7 +56,7 @@ class SettingsHandler:
                 
     def valid_settings(self,data:dict)->bool:
         ret:list=[]
-        ret.append(int(os.path.isfile(data["help_text_path"])))
+        #ret.append(int(os.path.isfile(data["help_text_path"])))
         ret.append(int(type(data["update_time"])==int))
         ret.append(int(type(data["data_load_time"])==int))
         if sum(ret)==len(ret):
@@ -90,9 +98,7 @@ class Handler:
         return ret
     
     def get_help_data(self)->str:
-        help_text_path=self.settings_handler.get_settings()["help_text_path"]
-        with open(help_text_path,"r") as f:
-            return f.read()
+        pass
 
 class CPU_Data_Handler:
     def __init__(self)->None:
