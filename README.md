@@ -5,3 +5,10 @@
 - psutil
 - socket
 - platform
+
+## Build:
+```
+git clone https://github.com/Jonas-Luetolf/System-Monitor/
+cd System-Monitor
+make compile
+```
