@@ -48,7 +48,7 @@ class frontend:
         self.grid.add_widget(self.format_cpu_data(data["cpu"]),0)
         self.grid.add_widget(self.format_ram_data(data["ram"]),0)
         for index,disk in enumerate(self.format_disk_data(data["disks"])):
-            self.grid.add_widget(disk,1+index//2)
+            self.grid.add_widget(disk,1+index)
         print(self.grid)
 
     def format_cpu_data(self,data):
