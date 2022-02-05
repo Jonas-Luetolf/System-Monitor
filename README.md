@@ -10,3 +10,4 @@
 ### Arch/Manjaro/etc.:
 - download [PKGBUILD](https://github.com/Jonas-Luetolf/System-Monitor/releases/download/beta/PKGBUILD)
 - execute makepkg -si
+(AUR package coming soon)
