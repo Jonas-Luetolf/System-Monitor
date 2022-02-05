@@ -6,9 +6,7 @@
 - socket
 - platform
 
-## Build:
-```
-git clone https://github.com/Jonas-Luetolf/System-Monitor/
-cd System-Monitor
-make compile
-```
+## Install
+### Arch/Manjaro/etc.:
+- download [PKGBUILD](https://github.com/Jonas-Luetolf/System-Monitor/releases/download/beta/PKGBUILD)
+- execute makepkg -si
