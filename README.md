@@ -6,6 +6,8 @@
 
 
 ## Install
+The program is officially only available for Linux. If you want you can adapt the code for windows.
+
 ### Arch/Manjaro/etc.:
 - download [PKGBUILD](https://github.com/Jonas-Luetolf/System-Monitor/releases/download/beta/PKGBUILD)
 - execute makepkg -si
