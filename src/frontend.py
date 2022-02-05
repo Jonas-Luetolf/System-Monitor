@@ -48,7 +48,7 @@ class frontend:
         self.grid.add_widget(self.format_cpu_data(data["cpu"]),0)
         self.grid.add_widget(self.format_ram_data(data["ram"]),0)
         for index,disk in enumerate(self.format_disk_data(data["disks"])):
-            self.grid.add_widget(disk,1+index)
+            self.grid.add_widget(disk,1+(index)//2)
         print(self.grid)
 
     def format_cpu_data(self,data):
@@ -72,11 +72,10 @@ class frontend:
         ret=[]
         for i in data:
             temp=Widget(i)
-            temp[0]=f"Mountpoint: {data[i]['mountpoint']}"
-            temp[1]=f"Filesystem: {data[i]['fstype']}"
-            temp[2]=f"Total Size: {change_suffix(data[i]['totalsize'])}"
-            temp[3]=f"Used Space: {change_suffix(data[i]['used'])}"
-            temp[4]=f"Free Space: {change_suffix(data[i]['free'])}"
+            temp[0]=f"Filesystem: {data[i]['fstype']}"
+            temp[1]=f"Total Size: {change_suffix(data[i]['totalsize'])}"
+            temp[2]=f"Used Space: {change_suffix(data[i]['used'])}"
+            temp[3]=f"Free Space: {change_suffix(data[i]['free'])}"
             ret.append(temp)
 
         return ret
