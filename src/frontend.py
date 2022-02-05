@@ -34,22 +34,39 @@ class frontend:
 
     def start_loop(self)->None:
         while True:
-            aktuell_data=self.get_data(["general","cpu","ram","disks"])
-            self.print_data(aktuell_data)
+            aktuell_data=self.get_data(self.config["loop_objects"])
+            self.print_data(aktuell_data,self.config["loop_objects"])
             time.sleep(int(self.config["update_time"])-int(self.config["data_load_time"]))
 
     def print_help(self)->None:
         help_data=self.backend_handler.get_help_data()
         print(help_data)
 
-    def print_data(self,data:dict)->None:
+    def print_data(self,data:dict,objects)->None:
         self.clean()
         self.grid.clear()
-        self.grid.add_widget(self.format_cpu_data(data["cpu"]),0)
-        self.grid.add_widget(self.format_ram_data(data["ram"]),0)
-        for index,disk in enumerate(self.format_disk_data(data["disks"])):
-            self.grid.add_widget(disk,1+(index)//2)
+        y=0
+        if "general" in objects:
+            self.grid.add_widget(self.format_general_data(data["general"]), y)
+            y+=2
+
+        if "cpu" in objects:
+            self.grid.add_widget(self.format_cpu_data(data["cpu"]),y//2)
+            y+=1 
+        if "ram" in objects:
+            self.grid.add_widget(self.format_ram_data(data["ram"]),y//2)
+            y+=1 
+        if "disks" in objects:
+            for disk in self.format_disk_data(data["disks"]):
+                self.grid.add_widget(disk,(y)//2)
+                y+=1
         print(self.grid)
+
+    def format_general_data(self,data):
+        ret=Widget("GeneralData")
+        ret[0]=f"OS: {data['os']}"
+        ret[1]=f"Hostname: {data['hostname']}"
+        return ret
 
     def format_cpu_data(self,data):
         self.cpu_usage_diagram.set_data(data['general_usage'])

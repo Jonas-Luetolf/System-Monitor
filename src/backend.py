@@ -4,10 +4,9 @@ import yaml
 import psutil
 import platform
 import socket
-DEFAULTCONFIG="""
-data_load_time: 2
+DEFAULTCONFIG="""data_load_time: 2
 update_time: 2
-"""
+loop_objects: ["general","cpu","ram","disks"]"""
 class InvalidSettings(Exception):
     def __init__(self) -> None:
         super().__init__()
@@ -62,6 +61,7 @@ class SettingsHandler:
         #ret.append(int(os.path.isfile(data["help_text_path"])))
         ret.append(int(type(data["update_time"])==int))
         ret.append(int(type(data["data_load_time"])==int))
+        ret.append(sum(i in ["cpu","ram","general","disks"] for i in data["loop_objects"])==len(data["loop_objects"]))
         if sum(ret)==len(ret):
             return True
         else:
@@ -97,6 +97,8 @@ class Handler:
         
         if "ram" in objects:
             ret.update({"ram":self.ram_handler.get_data()})
+        
+        if "disks" in objects:    
             ret.update({"disks":self.disks_handler.get_data()})
         return ret
     
