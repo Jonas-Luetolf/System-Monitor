@@ -11,4 +11,3 @@ package(){
 cp -r ./usr "$pkgdir/"
 
 }
-
