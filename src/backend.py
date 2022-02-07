@@ -61,8 +61,7 @@ class SettingsHandler:
     def valid_settings(self,data:dict)->bool:
         ret:list=[]
         #ret.append(int(os.path.isfile(data["help_text_path"])))
-        ret.append(int(type(data["update_time"])==int))
-        ret.append(int(type(data["data_load_time"])==int))    
+        ret.append(int(type(data["update_time"])==int))   
         ret.append(sum(i in ["cpu","ram","general","disks"] for i in data["loop_objects"])==len(data["loop_objects"]))
         if sum(ret)==len(ret):
             return True
