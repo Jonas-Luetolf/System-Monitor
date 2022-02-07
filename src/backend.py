@@ -4,7 +4,7 @@ import yaml
 import psutil
 import platform
 import socket
-DEFAULTCONFIG="""data_load_time: 2
+DEFAULTCONFIG="""
 update_time: 2
 loop_objects: ["general","cpu","ram","disks"]"""
 class InvalidSettings(Exception):
@@ -15,43 +15,45 @@ class InvalidSettings(Exception):
         return "InvalidSettings: config file and backup file are invalid"
 
 class SettingsHandler:
-    def __init__(self,config_path,backup_path)->None:
+    def __init__(self,config_path)->None:
         self.config_path=config_path
-        self.backup_path=backup_path
 
     def get_settings(self)->dict:
         load_data=self.open_config(self.config_path)
         if self.valid_settings(load_data):
             pass
 
-        elif self.valid_settings(self.open_config(self.backup_path)):
-            load_data=self.open_config(self.backup_path)
-
         else:
-            raise InvalidSettings
+            load_data=self.get_backup_config()
 
         return load_data
 
-    def open_config(slef,path:str)->dict:
+    def open_config(self,path:str)->dict:
         try:
             with open(path,"r") as f:
-                return yaml.load(f.read(),Loader=yaml.FullLoader)
+                data=yaml.load(f.read(),Loader=yaml.FullLoader)
+                load_time=sum(i in ["cpu","ram"] for i in data["loop_objects"])
+                data.update({"data_load_time":load_time})
         except: 
-            try:
+            data=self.get_backup_config() 
+        return data
+    
+    def get_backup_config(self):
+        try:                                     
                 os.mkdir(os.path.expanduser('~')+"/.config/System-Monitor/")
-            except FileExistsError:
-                pass
-            f=open(os.path.expanduser('~')+"/.config/System-Monitor/config.yaml",'w')
-            f.write(DEFAULTCONFIG)
-            f.close()
-            return yaml.load(DEFAULTCONFIG,Loader=yaml.FullLoader)
+        except FileExistsError:                  
+                pass                                 
+        f=open(os.path.expanduser('~')+"/.config/System-Monitor/config.yaml",'w')
+        f.write(DEFAULTCONFIG)                   
+        f.close()                                
+        data=yaml.load(DEFAULTCONFIG,Loader=yaml.FullLoader)
+        load_time=sum(i in ["cpu","ram"] for i in data["loop_objects"])
+        data.update({"data_load_time":load_time})  
+        return data
 
     def set_settings(self,data:dict)->None:
         if self.valid_settings(data):
             with open(self.config_path,"w") as f:
-                f.write(yaml.dump(data))
-            
-            with open(self.backup_path,"w")as f:
                 f.write(yaml.dump(data))
         else:
             raise InvalidSettings
@@ -60,7 +62,7 @@ class SettingsHandler:
         ret:list=[]
         #ret.append(int(os.path.isfile(data["help_text_path"])))
         ret.append(int(type(data["update_time"])==int))
-        ret.append(int(type(data["data_load_time"])==int))
+        ret.append(int(type(data["data_load_time"])==int))    
         ret.append(sum(i in ["cpu","ram","general","disks"] for i in data["loop_objects"])==len(data["loop_objects"]))
         if sum(ret)==len(ret):
             return True
@@ -68,8 +70,8 @@ class SettingsHandler:
             return False
 
 class Handler:
-    def __init__(self,config_path:str,backup_path:str)->None:
-        self.settings_handler=SettingsHandler(config_path,backup_path)
+    def __init__(self,config_path:str)->None:
+        self.settings_handler=SettingsHandler(config_path)
         self.cpu_handler=CPU_Data_Handler()
         self.ram_handler=RAM_Data_Handler()
         self.disks_handler=Disks_Data_Handler()       

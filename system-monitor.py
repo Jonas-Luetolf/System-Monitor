@@ -11,7 +11,7 @@ def main()->None:
     argparser.add_option("--setconf",1)
     argparser.parse()
 
-    backend_handler=backend.Handler(f"{expanduser('~')}/.config/System-Monitor/config.yaml",f"{expanduser('~')}/.config/System-Monitor//backupconfig.yaml")
+    backend_handler=backend.Handler(f"{expanduser('~')}/.config/System-Monitor/config.yaml")
     cpu_usage_diagram=diagram.Diagram()
     Frontend=frontend.frontend(backend_handler,cpu_usage_diagram)
 
