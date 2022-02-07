@@ -13,6 +13,7 @@ The program is officially only available for Linux. If you want you can adapt th
 git clone https://github.com/Jonas-Luetolf/System-Monitor
 cd System-Monitor
 make compile
+```
 
 ### Arch-based:
 - download [PKGBUILD](https://github.com/Jonas-Luetolf/System-Monitor/releases/download/v1.0/PKGBUILD)
