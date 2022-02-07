@@ -6,15 +6,24 @@
 
 
 ## Install
-The program is officially only available for Linux. If you want you can adapt the code for windows.
+The program is officially only available for Linux. If you want you can adapt the code for Windows or Mac.
 
-### Arch/Manjaro/etc.:
-- download PKGBUILD
+### self compile
+```bash
+git clone https://github.com/Jonas-Luetolf/System-Monitor
+cd System-Monitor
+make compile
+
+### Arch-based:
+- download [PKGBUILD](https://github.com/Jonas-Luetolf/System-Monitor/releases/download/v1.0/PKGBUILD)
 - execute makepkg -si
 (AUR package coming soon)
 
+### Debian-based.
+Debian package comming soon
+
 ## Options
-- --outputs the system data repeatedly
+- --loop outputs the system data repeatedly
 - --setconf <file> sets the config file to this file if the configuration is valid
 
 ## Config
@@ -32,9 +41,5 @@ This entry sets witch data is printed out by the loop function. It must be a lis
   - "ram" for the RAM data
   - "disks" for the Disks data
   - "general" for general data
-
-- data_load_time 
-This entry says how long it takes to load the systemdata.
-Don't edit this it will be removed in comming version.
 
 If the config file isn't valid the programm takes the default config.
