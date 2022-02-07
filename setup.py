@@ -12,7 +12,7 @@ if sys.platform == "win32":
 
 setup(
     name = "system-monitor",
-    version = "0.2",
+    version = "1.0",
     description = "a simpel System Monitor",
     options = {"build_exe": build_exe_options},
     
