@@ -26,11 +26,11 @@ make compile
 
 ## Commands
 - loop outputs the system data repeatedly
-- setconf --file <path> sets the config file to this file if the configuration is valid
+- setconf --file path sets the config file to this file if the configuration is valid
 
 ## Flags
-- --file <path to file> sets the filepath (commands: setconf)
-- --config <path to file> loads in this session the config from this file
+- --file path to file sets the filepath (commands: setconf)
+- --config path to file loads in this session the config from this file
 
 ## Config
 The config file is written to the directory ~/.config/System-Monitor/config.yaml the first time the program is run.
