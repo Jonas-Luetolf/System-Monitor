@@ -15,7 +15,7 @@ class InvalidSettings(Exception):
         return "InvalidSettings: config file and backup file are invalid"
 
 class SettingsHandler:
-    def __init__(self,config_path)->None:
+    def __init__(self,config_path:str)->None:
         self.config_path=config_path
 
     def get_settings(self)->dict:
@@ -38,7 +38,7 @@ class SettingsHandler:
             data=self.get_backup_config() 
         return data
     
-    def get_backup_config(self):
+    def get_backup_config(self)->dict:
         try:                                     
                 os.mkdir(os.path.expanduser('~')+"/.config/System-Monitor/")
         except FileExistsError:                  

@@ -5,7 +5,7 @@ from src.layout.widget import Widget
 from src.layout.grid import Grid, Line
 
 
-def change_suffix(num,base=1024,typ="B",types=["","K","M","G","T","P","E"]):
+def change_suffix(num:int,base=1024,typ="B",types=["","K","M","G","T","P","E"])->str:
     for i in types:
         if num>base:
             num/=base
