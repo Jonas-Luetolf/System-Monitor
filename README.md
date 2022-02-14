@@ -21,7 +21,7 @@ make compile
 (AUR package coming soon)
 
 ### Debian-based.
-- download [Debian-Package](https://github.com/Jonas-Luetolf/System-Monitor/raw/master/releases/system-monitor_1.0-2_amd64.deb)
+- download [Debian-Package](https://github.com/Jonas-Luetolf/System-Monitor/raw/master/releases/system-monitor_2.0-1_amd64.deb)
 - install the Package via ``` sudo apt install <path to file ex. ~/downloads/syystem-monitor_1.0-2_amd64.deb>```
 
 ## Commands
