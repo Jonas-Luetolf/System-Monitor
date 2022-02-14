@@ -1,4 +1,3 @@
-import sys
 class ParseError(Exception):
     def __init__(self):
         super().__init__()

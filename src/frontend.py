@@ -1,10 +1,8 @@
 #Copyright (c) 2022 Jonas Lütolf 
-import os
-import time
-import src.diagram.diagram as diagram
-import src.backend as backend
+from os import system,name
+from time import sleep
 from src.layout.widget import Widget
-from src.layout.grid import Grid,Line
+from src.layout.grid import Grid, Line
 
 
 def change_suffix(num,base=1024,typ="B",types=["","K","M","G","T","P","E"]):
@@ -15,19 +13,20 @@ def change_suffix(num,base=1024,typ="B",types=["","K","M","G","T","P","E"]):
             return f"{round(num,2)}{i}{typ}"
     return f"{round(num,2)}{types[-1]}{typ}"
 
-class frontend:
-    def __init__(self,backend_handler:backend.Handler,cpu_usage_diagram:diagram.Diagram) -> None:
+class Frontend:
+    def __init__(self,backend_handler,cpu_usage_diagram) -> None:
         self.cpu_usage_diagram=cpu_usage_diagram
         self.backend_handler=backend_handler
         self.config=self.backend_handler.get_config()
         self.grid=Grid()
-
-    def clean(self):
-        if os.name=="nt":
-            os.system("cls")
+    
+    @staticmethod
+    def clean()->None:
+        if name=="nt":
+            system("cls")
 
         else:
-            os.system("clear")
+            system("clear")
 
     def get_data(self,objects:list)->dict:
         return self.backend_handler.get_data(objects)
@@ -36,7 +35,7 @@ class frontend:
         while True:
             aktuell_data=self.get_data(self.config["loop_objects"])
             self.print_data(aktuell_data,self.config["loop_objects"])
-            time.sleep(int(self.config["update_time"])-int(self.config["data_load_time"]))
+            sleep(int(self.config["update_time"])-int(self.config["data_load_time"]))
 
     def print_help(self)->None:
         help_data=self.backend_handler.get_help_data()
@@ -61,8 +60,9 @@ class frontend:
                 self.grid.add_widget(disk,(y)//2)
                 y+=1
         print(self.grid)
-
-    def format_general_data(self,data):
+    
+    @staticmethod
+    def format_general_data(data):
         ret=Widget("GeneralData")
         ret[0]=f"OS: {data['os']}"
         ret[1]=f"Hostname: {data['hostname']}"
@@ -79,13 +79,16 @@ class frontend:
         
         return ret
     
-    def format_ram_data(self,data):
+    @staticmethod
+    def format_ram_data(data):
         ret=Widget("RAM")
         ret[0]=f"Total Size: {change_suffix(int(data['total']))}"
         ret[1]=f"Used Space: {change_suffix(int(data['used']))}"
         ret[2]=f"Free Space: {change_suffix(int(data['available']))}"
         return ret
-    def format_disk_data(self,data):
+
+    @staticmethod
+    def format_disk_data(data):
         ret=[]
         for i in data:
             temp=Widget(i)
