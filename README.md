@@ -24,9 +24,13 @@ make compile
 - download [Debian-Package](https://github.com/Jonas-Luetolf/System-Monitor/raw/master/releases/system-monitor_1.0-2_amd64.deb)
 - install the Package via ``` sudo apt install <path to file ex. ~/downloads/syystem-monitor_1.0-2_amd64.deb>```
 
-## Options
-- --loop outputs the system data repeatedly
-- --setconf <file> sets the config file to this file if the configuration is valid
+## Commands
+- loop outputs the system data repeatedly
+- setconf --file <path> sets the config file to this file if the configuration is valid
+
+## Flags
+- --file <path to file> sets the filepath (commands: setconf)
+- --config <path to file> loads in this session the config from this file
 
 ## Config
 The config file is written to the directory ~/.config/System-Monitor/config.yaml the first time the program is run.
