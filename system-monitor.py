@@ -41,4 +41,4 @@ if __name__ == '__main__':
         main()
     
     except KeyboardInterrupt:
-        print("\nstop programm")
+        print("\nstop program")
