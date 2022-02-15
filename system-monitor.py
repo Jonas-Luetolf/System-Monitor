@@ -37,4 +37,8 @@ def main()->None:
             print("no command")
 
 if __name__ == '__main__':
-    main()
+    try:
+        main()
+    
+    except KeyboardInterrupt:
+        print("\nstop programm")
