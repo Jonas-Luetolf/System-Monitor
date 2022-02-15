@@ -23,33 +23,34 @@ class SettingsHandler:
         if self.valid_settings(load_data):
             pass
 
+        #load default config
         else:
-            load_data=self.get_backup_config()
+            self.set_backup_config(self.config_path)
+            load_data=self.open_config(self.config_path)
 
         return load_data
 
-    def open_config(self,path:str)->dict:
+    @staticmethod
+    def open_config(path:str)->dict:
         try:
             with open(path,"r") as f:
                 data=yaml.load(f.read(),Loader=yaml.FullLoader)
                 load_time=sum(i in ["cpu","ram"] for i in data["loop_objects"])
                 data.update({"data_load_time":load_time})
         except: 
-            data=self.get_backup_config() 
+            data=None
+
         return data
-    
-    def get_backup_config(self)->dict:
+
+    @staticmethod
+    def set_backup_config(config_path:str)->None:
         try:                                     
-                os.mkdir(os.path.expanduser('~')+"/.config/System-Monitor/")
+            os.mkdir(config_path[0:len(config_path)-(list(reversed(config_path)).index("/"))])
         except FileExistsError:                  
                 pass                                 
-        f=open(os.path.expanduser('~')+"/.config/System-Monitor/config.yaml",'w')
+        f=open(config_path,'w')
         f.write(DEFAULTCONFIG)                   
         f.close()                                
-        data=yaml.load(DEFAULTCONFIG,Loader=yaml.FullLoader)
-        load_time=sum(i in ["cpu","ram"] for i in data["loop_objects"])
-        data.update({"data_load_time":load_time})  
-        return data
 
     def set_settings(self,data:dict)->None:
         if self.valid_settings(data):
@@ -57,15 +58,16 @@ class SettingsHandler:
                 f.write(yaml.dump(data))
         else:
             raise InvalidSettings
-                
-    def valid_settings(self,data:dict)->bool:
-        ret:list=[]
-        #ret.append(int(os.path.isfile(data["help_text_path"])))
-        ret.append(int(type(data["update_time"])==int))   
-        ret.append(sum(i in ["cpu","ram","general","disks"] for i in data["loop_objects"])==len(data["loop_objects"]))
-        if sum(ret)==len(ret):
+    
+    @staticmethod
+    def valid_settings(data:dict)->bool:
+        try:
+            #assert os.path.isfile(data["help_text_path"])
+            assert type(data["update_time"])==int
+            assert sum(i in ["cpu","ram","general","disks"] for i in data["loop_objects"])==len(data["loop_objects"])
             return True
-        else:
+
+        except:
             return False
 
 class Handler:

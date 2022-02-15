@@ -1,21 +1,23 @@
 import math
+from dataclasses import dataclass
+
+@dataclass
 class Edge:
-    def __init__(self,style=2):
-        self.LEFTTOP="╔"
-        self.RIGHTTOP="╗"
-        self.LEFTBOTTOM="╚"
-        self.RIGHTBOTTOM="╝"
-        self.BOTTOMTOP="═"
-        self.LEFTRIGHT="║"
+    LEFTTOP="╔"
+    RIGHTTOP="╗"
+    LEFTBOTTOM="╚"
+    RIGHTBOTTOM="╝"
+    BOTTOMTOP="═"
+    LEFTRIGHT="║"
 
 
 class Widget:
-    def __init__(self,name):
+    def __init__(self,name:str)->None:
         self.name = name
         self.lines=[]
         self.edge=Edge()
 
-    def clear(self):
+    def clear(self)->None:
         self.lines=[]
     
     def __iter__(self):
@@ -24,19 +26,16 @@ class Widget:
         for i in ret_list:
             yield i
 
-    def __setitem__(self,index,string):
-        try:
-            self.lines[index]=string
-        except IndexError:
-            for i in range(0,index+2-len(self.lines)-1):
-                self.lines.append("")
-            self.lines[index]=string
+    def __setitem__(self,index:int,contend:str)->None:
+        if index>=len(self.lines):
+            self.lines+=("" for i in range(0,index+2-len(self.lines)-1))
+        self.lines[index]=contend
 
-    def get_x_len(self):
+    def get_x_len(self)->None:
         x_len=0
         return max(len(i) for i in self.lines+[self.name])
 
-    def __str__(self):
+    def __str__(self)->str:
         x_len=self.get_x_len()
         ret=f"{self.edge.LEFTTOP}{self.edge.BOTTOMTOP*math.ceil((x_len-1-len(self.name))/2)}{self.name}{self.edge.BOTTOMTOP*(math.ceil((x_len-len(self.name))/2))}{self.edge.RIGHTTOP}\n"
         for i in self.lines:
