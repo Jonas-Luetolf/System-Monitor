@@ -16,7 +16,7 @@ make compile
 ```
 
 ### Arch-based:
-- download [PKGBUILD](https://github.com/Jonas-Luetolf/System-Monitor/raw/master/PKGBUILD)
+- download [PKGBUILD](https://github.com/Jonas-Luetolf/System-Monitor/releases/download/v2.0/PKGBUILD)
 - execute makepkg -si
 (AUR package coming soon)
 
